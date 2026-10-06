@@ -2,8 +2,49 @@
 
 버전 규칙은 semver 입니다. `README.md` 의 버전 표를 보십시오.
 
+## 2.0.0 — 2026-10-06
+
+**플러그인 식별자를 개명했습니다. 구버전에서 자동 갱신되지 않습니다.**
+
+- **식별자 `qgis-mcp-course` → `upwise-qgis-mcp-toolkit`.** `plugin.json` 과 `marketplace.json` 의
+  `name` 이 둘 다 바뀌었다. 식별자가 바뀌면 `claude plugin update` 가 같은 플러그인으로 보지 않으므로
+  **MAJOR** 다. `README.md` 버전 표의 MAJOR 행에 "플러그인 식별자(`name`)가 바뀔 때" 를 넣었다
+- **표시명 `QGIS + Claude MCP 완전 정복` → `UPWISE QGIS MCP Toolkit`.** 강의명은 그대로이고
+  플러그인 표시명만 바꿨다. 탐색 목록과 설치 경고 팝업에 이 이름이 나온다.
+  README 의 경고 팝업 인용문도 새 표시명으로 적었다 — **v2.0.0 재설치 때 실물 문구를 재확인한다**
+- **저장소 주소를 `upwise-edu/upwise-qgis-mcp-toolkit` 으로 바꿨다.** `plugin.json` 의
+  `homepage` · `repository`, `README.md` 의 설치·갱신 명령, `LICENSE-docs` 의 출처 표시 형식이 대상이다
+- **스킬 호출 접두가 `/qgis-mcp-course:` → `/upwise-qgis-mcp-toolkit:` 으로 바뀐다.**
+  스킬 폴더명 4종(`qgis-connect-check` · `qgis-preprocess` · `qgis-verify` · `qgis-style`)은 그대로다
+- **마이그레이션 절을 신설했다.** 구버전 설치자는 `claude plugin uninstall qgis-mcp-course` 와
+  `claude plugin marketplace remove qgis-mcp-course` 로 지운 뒤 새 이름으로 다시 설치한다
+- `keywords` 에 `toolkit` 을 넣었다. `author` · `license` 는 그대로다
+
+실측으로 남아 있던 백로그 세 건을 스킬 본문에 반영했습니다.
+
+- **`qgis-connect-check` 의 서버 켜는 위치를 정정했다.** "QGIS MCP 도크 위젯에서 서버를 켜야" 는
+  **구버전 UI 서술**이었다. 0.15.0 설치본에는 도크 위젯이 없다 — `QDockWidget` · `addDockWidget` 가
+  전수 탐색 0건이고, Run MCP 는 `iface.pluginToolBar()` 의 툴버튼 액션이다(`plugin.py:72-75,125`).
+  켜지면 **툴바 아이콘이 초록**으로 바뀌고 `MCP :9876` 문자열은 **툴팁과 플러그인 메뉴 항목 이름**에만
+  보인다(툴버튼은 `setToolButtonStyle(ICON_ONLY)` 로 아이콘만 그린다 — `plugin.py:124,127,135,355-370`).
+  근거는 강의 저장소 장부 `scripts/verify_ledger.csv` 의 **V18-1 · V18-9**(설치본 소스 실측)
+- **`qgis-connect-check` 4절에 함정 20 의 행동 한 줄을 넣었다.** 스킬 4종에는 프로젝트를 열거나 닫는
+  호출이 없어 열려 있는 프로젝트가 무엇이든 거기에 레이어가 쌓인다.
+  **경고가 보이면 그 프로젝트를 닫고 빈 프로젝트나 실습 프로젝트에서 다시 시작한다**
+- **`qgis-style` 3절에 함정 19 의 한 줄을 넣었다.** 되읽기 대조는
+  `qgis/renderer-v2/symbols/symbol[N]/layer`(래스터는 `rasterrenderer`) **하위로 경로를 한정**한다.
+  QML 을 앞에서부터 훑어 첫 `SimpleFill` 을 잡으면 QGIS 3.44 가 모든 내보내기 QML 에 붙이는
+  `qgis/elevation/profileFillSymbol` 심볼이 걸려 DIFF 오탐이 난다
+- **1.1.0 항목의 "도크는 `Server: not running` 표시" 는 오기였다 (아래에서 정정).**
+  그 라벨은 도크가 아니라 플러그인 메뉴의 `MCP Setup Configurator` 대화상자 안에 있다
+  (`configurator.py:592`/`595`)
+- **`skills/qgis-preprocess/SKILL.md` 는 이번 판에서 손대지 않았다.** 자동 생성물이라
+  헤더의 버전 리터럴이 아직 `1.1.0` 이다. 강의 저장소에서 `python scripts/build_skills.py` 를 돌리면
+  `plugin.json` 의 2.0.0 으로 맞춰진다. 다른 스킬 3종과 `README.md` 의 버전 줄은 같은 값으로 미리 맞췄다
+
 ## 1.1.0 — 2026-09-30
-- 서버 켜는 버튼 라벨을 실물대로 **Run MCP** 로 통일(업스트림 v0.15.0 `plugin.py` 툴바 액션 원문. 도크는 `Server: not running` 표시). 이전 문서의 `Start Server` 는 오기
+- 서버 켜는 버튼 라벨을 실물대로 **Run MCP** 로 통일(업스트림 v0.15.0 `plugin.py` 툴바 액션 원문). 이전 문서의 `Start Server` 는 오기
+  — ~~도크는 `Server: not running` 표시~~ **2.0.0 정정: 0.15.0 에는 도크 위젯이 없다.** 그 라벨은 플러그인 메뉴의 `MCP Setup Configurator` 대화상자 안에 있다
 - 표준 스타일 25개(QML 22 + 치환 템플릿 3). `p9_landcover_major_7.qml` 신설 — 토지피복 대분류(값 1~7) 래스터용, 색은 환경부 「토지피복지도 작성지침」 별표1 원문 RGB(law.go.kr flSeq=158209827)
 
 기준 환경을 승격하고 설치 절을 다시 짰습니다. 스킬 4종의 절차 본문과 동봉 자산은 그대로입니다.

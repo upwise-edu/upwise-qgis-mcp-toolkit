@@ -1,4 +1,4 @@
-# QGIS + Claude MCP 완전 정복 — 강의 배포 플러그인
+# UPWISE QGIS MCP Toolkit — QGIS + Claude MCP 완전정복 강의 배포 플러그인
 
 QGIS 를 MCP 로 제어하는 강의의 실습 자산입니다. 절차 스킬 4종과 표준 스타일 25개, 그리고 QGIS MCP 서버 설정이 들어 있습니다.
 
@@ -17,6 +17,20 @@ QGIS 를 MCP 로 제어하는 강의의 실습 자산입니다. 절차 스킬 4�
 
 동봉 스크립트는 **선택 실행**입니다. Python 3 와 fiona · geopandas · numpy · pandas · rasterio 가 있어야 돌아갑니다.
 없어도 스킬은 MCP 도구만으로 성립합니다.
+
+## 구버전에서 옮겨오기 — v1.x `qgis-mcp-course` 를 깔아 두셨다면
+
+v2.0.0 에서 플러그인 식별자가 `qgis-mcp-course` → `upwise-qgis-mcp-toolkit` 으로 바뀌었습니다.
+이름이 다르므로 `claude plugin update` 로는 넘어오지 않습니다. **구버전을 지우고 새 이름으로 다시 설치합니다.**
+
+```
+claude plugin uninstall qgis-mcp-course
+claude plugin marketplace remove qgis-mcp-course
+```
+
+앱에서 설치하셨다면 `/plugin` 팝업의 **내 항목**에서 구버전을 제거하고, **마켓플레이스 관리**에서
+같은 이름의 항목도 지운 뒤 아래 2절을 새 이름으로 다시 합니다.
+스킬 호출 접두도 `/qgis-mcp-course:` → `/upwise-qgis-mcp-toolkit:` 으로 바뀝니다.
 
 ## 설치 — 1. 사전 요건
 
@@ -39,24 +53,25 @@ PowerShell 에서 `Test-NetConnection 127.0.0.1 -Port 9876` 이 `True` 여야 �
 
 1. 실습 폴더를 연 Code 탭 입력창에 `/plugin` 을 입력합니다. **플러그인 관리 팝업**이 열립니다.
 2. 팝업에서 **"마켓플레이스 추가"** 를 고릅니다. 선택지가 두 개 나옵니다 — **"앤트로픽 소스 탐색"** 과 **"저장소에서"**.
-3. **"저장소에서"** 를 고르고 `upwise-edu/qgis-mcp-course` 를 입력합니다.
+3. **"저장소에서"** 를 고르고 `upwise-edu/upwise-qgis-mcp-toolkit` 을 입력합니다.
    칸 안내 문구는 "GitHub owner/repo 형식 또는 Git 저장소 URL" 입니다.
    `marketplace.json` 의 raw 주소를 넣으면 실패합니다.
 4. **아래 목록에 뜬 후보의 오른쪽 "추가" 버튼을 한 번 더 누릅니다.**
    입력하면 후보가 바로 보이기 때문에 다 된 것처럼 보이는데, 그 상태로 창을 닫으면
    **등록만 남고 카탈로그를 받지 못합니다.** 가장 자주 빠뜨리는 칸입니다.
-5. **탐색**에서 "QGIS + Claude MCP 완전 정복" 을 찾아 **설치**합니다.
+5. **탐색**에서 "UPWISE QGIS MCP Toolkit" 을 찾아 **설치**합니다.
 6. 설치 직전에 경고 팝업이 뜹니다. **정상입니다.** 계속을 누르세요. 원문은 이렇습니다.
 
    > 이 플러그인에는 로컬 MCP 서버가 포함되어 있습니다
    > 설치하면 컴퓨터의 모든 항목에 대한 액세스 권한이 부여됩니다
-   > QGIS + Claude MCP 완전 정복 플러그인에는 컴퓨터에서 로컬 프로세스를 실행하는 다음 MCP 서버가 포함되어 있습니다: qgis
+   > UPWISE QGIS MCP Toolkit 플러그인에는 컴퓨터에서 로컬 프로세스를 실행하는 다음 MCP 서버가 포함되어 있습니다: qgis
    > 신뢰하는 개발자가 제공하는 플러그인만 사용하세요. …
 
    이 플러그인이 QGIS 에 붙는 MCP 서버를 이 PC 에서 직접 띄우기 때문에 나오는 경고입니다.
+   위 인용은 표시명을 새 이름으로 바꿔 적은 것입니다 (v2.0.0 재설치 때 문구 재확인 예정).
 7. **새 세션을 엽니다.** 설치한 세션에는 스킬과 MCP 서버가 아직 올라와 있지 않습니다.
 
-> **`/plugin` 뒤에 인자를 붙이지 마세요.** `/plugin marketplace add upwise-edu/qgis-mcp-course` 처럼
+> **`/plugin` 뒤에 인자를 붙이지 마세요.** `/plugin marketplace add upwise-edu/upwise-qgis-mcp-toolkit` 처럼
 > 터미널 문법을 그대로 넣으면 **인자는 무시되고 팝업만 열립니다.** 팝업 안에서 위 순서대로 고르면 됩니다.
 
 ## 설치 — 3. 설치 확인
@@ -65,10 +80,10 @@ PowerShell 에서 `Test-NetConnection 127.0.0.1 -Port 9876` 이 `True` 여야 �
 
 | 보는 곳 | 정상 |
 |---|---|
-| `/plugin` 팝업의 **내 항목(Installed)** | `qgis-mcp-course` 가 있습니다 |
-| 새 세션 입력창에 `/qgis-mcp-course:` 까지 입력 | 스킬 4종이 자동완성으로 뜹니다 |
+| `/plugin` 팝업의 **내 항목(Installed)** | `upwise-qgis-mcp-toolkit` 이 있습니다 |
+| 새 세션 입력창에 `/upwise-qgis-mcp-toolkit:` 까지 입력 | 스킬 4종이 자동완성으로 뜹니다 |
 
-두 칸이 맞으면 `/qgis-mcp-course:qgis-connect-check` 를 부릅니다.
+두 칸이 맞으면 `/upwise-qgis-mcp-toolkit:qgis-connect-check` 를 부릅니다.
 첫 줄에 헤더 `[qgis-connect-check <버전>]` 이 나오고 `연결: pong` 이 보이면 끝입니다.
 
 > **순서를 바꾸지 마세요.** 스킬이 안 붙은 세션에서도 연결 확인은 답을 내놓습니다 —
@@ -77,7 +92,7 @@ PowerShell 에서 `Test-NetConnection 127.0.0.1 -Port 9876` 이 `True` 여야 �
 
 ## 설치 — 4. 탐색에 안 보일 때 (자기진단)
 
-마켓플레이스 관리 목록에는 `qgis-mcp-course` 가 보이는데 **탐색이나 내 항목에는 없는** 상태입니다.
+마켓플레이스 관리 목록에는 `upwise-qgis-mcp-toolkit` 이 보이는데 **탐색이나 내 항목에는 없는** 상태입니다.
 순서대로 의심합니다.
 
 1. **3번에서 "추가" 버튼을 안 눌렀다.** 등록만 남고 카탈로그가 없는 상태입니다.
@@ -102,12 +117,12 @@ git 을 깔 수 없는 PC 는 아래 5절로 갑니다.
 ## 설치 — 6. 터미널: Claude Code CLI
 
 ```
-claude plugin marketplace add upwise-edu/qgis-mcp-course
-claude plugin install qgis-mcp-course@qgis-mcp-course
+claude plugin marketplace add upwise-edu/upwise-qgis-mcp-toolkit
+claude plugin install upwise-qgis-mcp-toolkit@upwise-qgis-mcp-toolkit
 ```
 
 설치하면 스킬 4종과 QGIS MCP 서버 설정(`.mcp.json`)이 함께 들어옵니다.
-호출은 `/qgis-mcp-course:qgis-connect-check` 처럼 하거나, 그냥 "연결 확인해줘" 라고 해도 됩니다.
+호출은 `/upwise-qgis-mcp-toolkit:qgis-connect-check` 처럼 하거나, 그냥 "연결 확인해줘" 라고 해도 됩니다.
 
 > **이미 `qgis` 서버를 직접 등록해 두셨다면 그 항목을 지우십시오.**
 > `~/.claude.json` 이나 실습 폴더의 `.mcp.json` 에 `qgis` 를 넣어 두셨다면 플러그인의 서버와 겹쳐
@@ -123,7 +138,7 @@ claude plugin install qgis-mcp-course@qgis-mcp-course
 갱신은 한 줄입니다.
 
 ```
-claude plugin update qgis-mcp-course@qgis-mcp-course
+claude plugin update upwise-qgis-mcp-toolkit@upwise-qgis-mcp-toolkit
 ```
 
 ## 설치 — 7. Codex · Cursor
@@ -168,14 +183,14 @@ Cursor 는 같은 `uvx` 명령을 Cursor 의 MCP 설정에 등록합니다.
 
 ## 버전
 
-현재 버전: 1.1.0
+현재 버전: 2.0.0
 
 규칙은 semver 입니다. 변경 내역은 `CHANGELOG.md` 에 있습니다.
 이 문서에서 버전 번호를 적는 곳은 위 한 줄뿐입니다 — 빌드 스크립트가 `plugin.json` 에서 맞춥니다.
 
 | 자리 | 올리는 때 |
 |---|---|
-| MAJOR | 스킬 이름이 바뀌거나 없어질 때. QGIS 기준 버전이 바뀔 때 |
+| MAJOR | 플러그인 식별자(`name`)가 바뀔 때. 스킬 이름이 바뀌거나 없어질 때. QGIS 기준 버전이 바뀔 때 |
 | MINOR | 스킬이 늘 때. 동봉 자산이 늘 때. `.mcp.json` 의 서버 태그를 올릴 때 |
 | PATCH | 문구 수정. 오타. 트리거 문장 손질 |
 

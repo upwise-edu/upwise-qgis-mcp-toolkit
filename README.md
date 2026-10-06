@@ -1,19 +1,25 @@
 # UPWISE QGIS MCP Toolkit — QGIS + Claude MCP 완전정복 강의 배포 플러그인
 
-QGIS 를 MCP 로 제어하는 강의의 실습 자산입니다. 절차 스킬 4종과 표준 스타일 25개, 그리고 QGIS MCP 서버 설정이 들어 있습니다.
+QGIS 를 MCP 로 제어하는 강의의 실습 자산입니다. 절차 스킬 5종과 표준 스타일 25개, 그리고 QGIS MCP 서버 설정이 들어 있습니다.
 
 실습 데이터와 수집 스크립트는 여기 없습니다. 그쪽은 인프런 첨부 파일 `qgis_mcp_class_starter.zip` 입니다.
 **이 플러그인이 없어도 실습은 됩니다.** 실습 규칙 본문은 데이터 패키지의 `AGENTS.md` 와 `PREPROCESS.md` 에 있습니다.
 플러그인은 그 절차를 짧은 명령으로 바꿔 줄 뿐입니다.
 
-## 스킬 4종
+## 스킬 5종
 
-| 스킬 | 언제 쓰나 | 동봉 |
+표는 실습 순서대로입니다 — 연결 확인 → 수집 → 전처리 → 검증 → 스타일.
+
+| 스킬 | 언제 쓰나 (부르는 말) | 산출물 · 동봉 |
 |---|---|---|
-| `qgis-connect-check` | 연결 확인 · QGIS 버전 확인. 다른 작업을 시작하기 전에 | — |
-| `qgis-preprocess` | `00.origins` → `01.preprocess` 검증 9항목 전처리 | 감사 스크립트 (선택) |
-| `qgis-verify` | `04.verify/verify_pN.csv` 대조표 채우기 | 재계산 스크립트 (선택) |
-| `qgis-style` | 표준 스타일 적용 | QML 22 + 치환 템플릿 3 |
+| `qgis-connect-check` | 연결 확인 · QGIS 버전 확인. 다른 작업을 시작하기 전에 ("연결 확인해줘" · "ping") | 점검표 (읽기만) / 동봉 — |
+| `qgis-collect` | 공공데이터 API 수집기를 의존 순서대로 실행 ("수집해줘" · "데이터 받아줘" · "P3 데이터 수집") | `00.origins` 원본 + `scripts/_logs` 수집 로그 / 동봉 — |
+| `qgis-preprocess` | `00.origins` → `01.preprocess` 검증 9항목 전처리 ("전처리해줘") | 표준 입력 + `_preprocess_log.csv` / 감사 스크립트 (선택) |
+| `qgis-verify` | `04.verify/verify_pN.csv` 대조표 채우기 ("검증해줘") | 채워진 대조표 / 재계산 스크립트 (선택) |
+| `qgis-style` | 표준 스타일 적용 ("스타일 적용" · "색 맞춰줘") | 스타일 적용된 레이어 / QML 22 + 치환 템플릿 3 |
+
+`qgis-collect` 는 QGIS·MCP 를 쓰지 않습니다. 실습 패키지의 수집 스크립트를 돌리는 스킬이라
+`C:\qgis_mcp_class` 와 Python 3 가 필요하고, 키는 패키지의 `.env` 에서 **이름만** 확인합니다.
 
 동봉 스크립트는 **선택 실행**입니다. Python 3 와 fiona · geopandas · numpy · pandas · rasterio 가 있어야 돌아갑니다.
 없어도 스킬은 MCP 도구만으로 성립합니다.
@@ -81,7 +87,7 @@ PowerShell 에서 `Test-NetConnection 127.0.0.1 -Port 9876` 이 `True` 여야 �
 | 보는 곳 | 정상 |
 |---|---|
 | `/plugin` 팝업의 **내 항목(Installed)** | `upwise-qgis-mcp-toolkit` 이 있습니다 |
-| 새 세션 입력창에 `/upwise-qgis-mcp-toolkit:` 까지 입력 | 스킬 4종이 자동완성으로 뜹니다 |
+| 새 세션 입력창에 `/upwise-qgis-mcp-toolkit:` 까지 입력 | 스킬 5종이 자동완성으로 뜹니다 |
 
 두 칸이 맞으면 `/upwise-qgis-mcp-toolkit:qgis-connect-check` 를 부릅니다.
 첫 줄에 헤더 `[qgis-connect-check <버전>]` 이 나오고 `연결: pong` 이 보이면 끝입니다.
@@ -121,7 +127,7 @@ claude plugin marketplace add upwise-edu/upwise-qgis-mcp-toolkit
 claude plugin install upwise-qgis-mcp-toolkit@upwise-qgis-mcp-toolkit
 ```
 
-설치하면 스킬 4종과 QGIS MCP 서버 설정(`.mcp.json`)이 함께 들어옵니다.
+설치하면 스킬 5종과 QGIS MCP 서버 설정(`.mcp.json`)이 함께 들어옵니다.
 호출은 `/upwise-qgis-mcp-toolkit:qgis-connect-check` 처럼 하거나, 그냥 "연결 확인해줘" 라고 해도 됩니다.
 
 > **이미 `qgis` 서버를 직접 등록해 두셨다면 그 항목을 지우십시오.**
@@ -146,7 +152,7 @@ claude plugin update upwise-qgis-mcp-toolkit@upwise-qgis-mcp-toolkit
 Codex 와 Cursor 는 Claude 플러그인 형식을 설치하지 않습니다. **스킬 폴더를 복사**합니다.
 
 1. 이 저장소를 내려받습니다 (`Code ▸ Download ZIP` 또는 `git clone`).
-2. `skills/` 아래 4개 폴더를 아래 위치로 복사합니다.
+2. `skills/` 아래 5개 폴더를 아래 위치로 복사합니다.
 
    | 범위 | 복사 위치 |
    |---|---|
@@ -183,7 +189,7 @@ Cursor 는 같은 `uvx` 명령을 Cursor 의 MCP 설정에 등록합니다.
 
 ## 버전
 
-현재 버전: 2.0.0
+현재 버전: 2.1.0
 
 규칙은 semver 입니다. 변경 내역은 `CHANGELOG.md` 에 있습니다.
 이 문서에서 버전 번호를 적는 곳은 위 한 줄뿐입니다 — 빌드 스크립트가 `plugin.json` 에서 맞춥니다.

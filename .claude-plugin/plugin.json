@@ -1,8 +1,8 @@
 {
   "name": "upwise-qgis-mcp-toolkit",
   "displayName": "UPWISE QGIS MCP Toolkit",
-  "version": "2.0.0",
-  "description": "QGIS + Claude MCP 완전정복 강의의 실습 자산 — 절차 스킬 4종·표준 스타일·서버 설정 (기준: QGIS 3.44 LTR + QGIS MCP 플러그인 0.15.0)",
+  "version": "2.1.0",
+  "description": "QGIS + Claude MCP 완전정복 강의의 실습 자산 — 절차 스킬 5종·표준 스타일·서버 설정 (기준: QGIS 3.44 LTR + QGIS MCP 플러그인 0.15.0)",
   "author": { "name": "UPWISE" },
   "homepage": "https://github.com/upwise-edu/upwise-qgis-mcp-toolkit",
   "repository": "https://github.com/upwise-edu/upwise-qgis-mcp-toolkit",
